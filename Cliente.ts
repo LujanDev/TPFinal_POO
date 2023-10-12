@@ -18,9 +18,9 @@ export class Cliente extends Persona{
         this.esVip=true;
     }
     //recorro cada paciente del cliente y le seteo el id del dueño
-    for(let i:number=0; i<paciente.length;i++){
-        paciente[i].setIdDuenio(this.idCliente);
-    }
+    //for(let i:number=0; i<paciente.length;i++){
+    //    paciente[i].setIdDuenio(this.idCliente);
+    //}
     }
 
     public getDni():string{
@@ -28,13 +28,18 @@ export class Cliente extends Persona{
     }
     public setDni(dniCorregido){
         this.dni=dniCorregido;
-    }
-
+    } 
     public getFechaNacim():string{
         return this.fechaNacim;
     }
     public setFechaNacim(fechaModificada){
         this.fechaNacim=fechaModificada;
+    }
+    public getPaciente(){
+        return this.paciente;
+    }
+    public setPaciente(listaPaciente:Paciente[]){
+        this.paciente=listaPaciente;
     }
     public getIdCliente():number{
         return this.idCliente;

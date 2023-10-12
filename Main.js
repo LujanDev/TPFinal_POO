@@ -42,3 +42,5 @@ sucursalViamonte.altaPaciente(pacienteDulce);
 sucursalViamonte.mostrarListaPacientes();
 sucursalViamonte.bajaPaciente(347782);
 sucursalViamonte.mostrarListaPacientes();
+//Comprobar que la mascota x tenga su idDuenio
+console.log("El id del paciente Rocky es: " + pacienteRocky.getIdDuenio());

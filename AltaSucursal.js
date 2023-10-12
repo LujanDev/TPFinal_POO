@@ -7,7 +7,7 @@ var AltaSucursal = /** @class */ (function () {
         this.sucursales = sucursales;
     }
     AltaSucursal.prototype.obtenerIdRandom = function () {
-        var id = Math.random() * Number.MAX_VALUE;
+        var id = Math.floor(Math.random() * 1000000) + 1;
         for (var i = 0; i < this.sucursales.length; i++) {
             while (this.sucursales[i].getId() == id) {
                 id = Math.random() * Number.MAX_VALUE;
@@ -29,9 +29,9 @@ var AltaSucursal = /** @class */ (function () {
         }
     };
     AltaSucursal.prototype.mostrarSucursalAlta = function (sucur) {
-        console.log("Nombre de la sucursal: ", sucur.getNombre());
-        console.log("El cuit es: ", sucur.getCuit());
-        console.log("Id de la sucursal ", sucur.getNombre(), " es: ", sucur.getIdSuc());
+        console.log("Nombre de la sucursal: " + sucur.getNombre());
+        console.log("El cuit es: " + sucur.getCuit());
+        console.log("Id de la sucursal " + sucur.getNombre(), " es: " + sucur.getIdSuc());
     };
     AltaSucursal.prototype.mostrarListaSucursales = function () {
         this.sucursales.forEach(function (suc) { return console.log(suc); });

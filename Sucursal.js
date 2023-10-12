@@ -49,7 +49,7 @@ var Sucursal = /** @class */ (function (_super) {
     };
     //Métodos para generar ID para el proveedor y el cliente
     Sucursal.prototype.obtenerIdProveedor = function () {
-        var id = Math.random() * Number.MAX_VALUE;
+        var id = Math.floor(Math.random() * 1000000) + 1;
         for (var i = 0; i < this.proveedores.length; i++) {
             while (this.proveedores[i].getId() == id) {
                 id = Math.random() * Number.MAX_VALUE;
@@ -58,7 +58,7 @@ var Sucursal = /** @class */ (function (_super) {
         return id;
     };
     Sucursal.prototype.obtenerIdCliente = function () {
-        var id = Math.random() * Number.MAX_VALUE;
+        var id = Math.floor(Math.random() * 1000000) + 1;
         for (var i = 0; i < this.clientes.length; i++) {
             while (this.clientes[i].getId() == id) {
                 id = Math.random() * Number.MAX_VALUE;
@@ -84,6 +84,10 @@ var Sucursal = /** @class */ (function (_super) {
             if (!existe) {
                 cl.setIdCliente(this.obtenerIdCliente());
                 this.clientes.push(cl);
+                //recorro cada paciente del cliente y le seteo el id del dueño
+                for (var i_1 = 0; i_1 < cl.getPaciente().length; i_1++) {
+                    cl.getPaciente()[i_1].setIdDuenio(cl.getIdCliente());
+                }
             }
             else {
                 console.log('existe el usuario en la sucursal');

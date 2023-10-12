@@ -28,11 +28,11 @@ var Cliente = /** @class */ (function (_super) {
         if (_this.numeroVisitas >= 5) {
             _this.esVip = true;
         }
-        //recorro cada paciente del cliente y le seteo el id del dueño
-        for (var i = 0; i < paciente.length; i++) {
-            paciente[i].setIdDuenio(_this.idCliente);
-        }
         return _this;
+        //recorro cada paciente del cliente y le seteo el id del dueño
+        //for(let i:number=0; i<paciente.length;i++){
+        //    paciente[i].setIdDuenio(this.idCliente);
+        //}
     }
     Cliente.prototype.getDni = function () {
         return this.dni;
@@ -45,6 +45,12 @@ var Cliente = /** @class */ (function (_super) {
     };
     Cliente.prototype.setFechaNacim = function (fechaModificada) {
         this.fechaNacim = fechaModificada;
+    };
+    Cliente.prototype.getPaciente = function () {
+        return this.paciente;
+    };
+    Cliente.prototype.setPaciente = function (listaPaciente) {
+        this.paciente = listaPaciente;
     };
     Cliente.prototype.getIdCliente = function () {
         return this.idCliente;
