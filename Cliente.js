@@ -19,15 +19,18 @@ exports.Cliente = void 0;
 var Persona_1 = require("./Persona");
 var Cliente = /** @class */ (function (_super) {
     __extends(Cliente, _super);
-    function Cliente(paciente, nombre, apellido, telefono, direccion, dni, fechaNacim) {
+    function Cliente(paciente, nombre, apellido, telefono, direccion, dni, fechaNacim, numeroVisitas) {
         var _this = _super.call(this, nombre, apellido, telefono, direccion) || this;
-        _this.numeroVisitas = 0;
         _this.esVip = false;
         _this.dni = dni;
         _this.fechaNacim = fechaNacim;
         _this.paciente = paciente;
         if (_this.numeroVisitas >= 5) {
             _this.esVip = true;
+        }
+        //recorro cada paciente del cliente y le seteo el id del dueño
+        for (var i = 0; i < paciente.length; i++) {
+            paciente[i].setIdDuenio(_this.idCliente);
         }
         return _this;
     }
@@ -42,6 +45,18 @@ var Cliente = /** @class */ (function (_super) {
     };
     Cliente.prototype.setFechaNacim = function (fechaModificada) {
         this.fechaNacim = fechaModificada;
+    };
+    Cliente.prototype.getIdCliente = function () {
+        return this.idCliente;
+    };
+    Cliente.prototype.setIdCliente = function (id) {
+        this.idCliente = id;
+    };
+    Cliente.prototype.getNumeroVisitas = function () {
+        return this.numeroVisitas;
+    };
+    Cliente.prototype.setNumeroVisitas = function (numVisita) {
+        this.numeroVisitas = numVisita;
     };
     Cliente.prototype.registrarVisita = function () {
         this.numeroVisitas = this.numeroVisitas + 1;

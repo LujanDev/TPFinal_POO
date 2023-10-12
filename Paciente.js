@@ -26,6 +26,9 @@ var Paciente = /** @class */ (function () {
     Paciente.prototype.getIdDuenio = function () {
         return this.idDuenio;
     };
+    Paciente.prototype.setIdDuenio = function (id) {
+        this.idDuenio = id;
+    };
     Paciente.prototype.getEspecie = function () {
         return this.especie;
     };

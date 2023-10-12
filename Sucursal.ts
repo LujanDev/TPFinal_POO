@@ -2,8 +2,7 @@ import { Veterinaria } from "./Veterinaria";
 import { Cliente } from "./Cliente";
 import { Paciente } from "./Paciente";
 import {Proveedor} from "./Proveedor";
-//import { Util } from "./Util";
-//import * as readlineSync from 'readline-sync';
+import * as readlineSync from 'readline-sync';
 
 
 export class Sucursal extends Veterinaria{
@@ -39,32 +38,27 @@ public getIdSuc():number{
 public setIdSuc(modificarId:number){
     this.idSuc=modificarId;
 }
-public obtenerIdRandom(){
-    let id=Math.random()*Number.MAX_VALUE;
-    this.idSuc=id;
-}
-/*public getNumberRandom(){
-    let id;
-    let obtenerId:boolean=false;
-    while(!obtenerId){
-        let id=Math.random()*Number.MAX_VALUE;
-    if(!this.existeId(id)){
-        obtenerId=true;
-        return id;
-    }
-}
-}
-public existeId(id:number):boolean{
-    let existe=false;
-    let i=0;
-    while(!existe&&i<this.getClientes.length){
-        if(this.getClientes[i].getId()==id){
-            existe=true;
+
+//Métodos para generar ID para el proveedor y el cliente
+ public obtenerIdProveedor(){
+    let id= Math.floor(Math.random()*1000000)+1;
+    for(let i:number=0;i<this.proveedores.length;i++){
+        while(this.proveedores[i].getId()==id){
+           id=Math.random()*Number.MAX_VALUE;
         }
-        i++;
     }
-    return existe;
- }*/
+    return id;
+}
+public obtenerIdCliente(){
+    let id= Math.floor(Math.random()*1000000)+1;
+    for(let i:number=0;i<this.clientes.length;i++){
+        while(this.clientes[i].getId()==id){
+           id=Math.random()*Number.MAX_VALUE;
+        }
+    }
+    return id;
+}
+//Métodos para mostrar datos de las listas de clientes y pacientes
    public mostrarListaClientes(){
     this.clientes.forEach((cl) => console.log(cl));
    }
@@ -79,6 +73,7 @@ public altaCliente(cl:Cliente){
         if(this.clientes[i].getTelefono()==cl.getTelefono()){
             existe=true;
         }if(!existe){
+            cl.setIdCliente(this.obtenerIdCliente());
             this.clientes.push(cl);
         }else{
             console.log('existe el usuario en la sucursal');
@@ -105,6 +100,16 @@ public bajaCliente(dni:string){
     }
     return "El cliente no se encuentra registrado";
 }
+public modificarDatosCliente(cl:Cliente){
+    let nuevoNombre= readlineSync.question("Introduce el nombre del cliente: ");
+    cl.setNombre(nuevoNombre);
+    let nuevoApellido= readlineSync.question("Introduce el apellido de ",nuevoNombre,": ");
+    cl.setApellido(nuevoApellido);
+    let nuevoTelefono= readlineSync.question("Teléfono: ");
+    cl.setTelefono(nuevoTelefono);
+    let nuevaDireccion= readlineSync.question("Domicilio: ");
+    cl.setDireccion(nuevaDireccion);
+}
 
 //Alta, baja y modificacion de un proveedor
 public altaProveedor(provee:Proveedor){
@@ -114,6 +119,7 @@ public altaProveedor(provee:Proveedor){
         if(this.proveedores[i].getTelefono()==provee.getTelefono()){
             existe=true;
         }if(!existe){
+            provee.setIdProv(this.obtenerIdProveedor());
             this.proveedores.push(provee);
         }else{
             console.log('El proveedor ya se encuentra registrado en la sucursal');
@@ -129,7 +135,6 @@ public validaProveedor(telefono:string){
         }
     }
     return encontro;
-
 }
 public bajaProveedor(telefono:string){
     let enc:number=this.validaCliente(telefono);
@@ -147,7 +152,7 @@ public altaPaciente(pac:Paciente){
     let existe=false;
     let i=0;
     while(!existe&& i<this.pacientes.length){
-        if(this.pacientes[i].getNumHistoriaClinica==pac.getNumHistoriaClinica){
+        if(this.pacientes[i].getNumHistoriaClinica()==pac.getNumHistoriaClinica()){
             existe=true;
         }if(!existe){
             this.pacientes.push(pac);
@@ -174,8 +179,14 @@ public bajaPaciente(numHistClinica:number){
            enc, 1
           );
     }
-    return "El paciente no se encuentra registrado.";
+    return "Operación realizada.";
 
+}
+public modificarDatosPaciente(pac:Paciente){
+    let nuevoNombre= readlineSync.question("Introduce el nombre del paciente: ");
+    pac.setNombre(nuevoNombre);
+    let edadActual= readlineSync.question("Introduce la edad actual de ",nuevoNombre,": ");
+    pac.setEdad(edadActual);
 }
 
 }

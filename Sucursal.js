@@ -17,8 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 exports.Sucursal = void 0;
 var Veterinaria_1 = require("./Veterinaria");
-//import { Util } from "./Util";
-//import * as readlineSync from 'readline-sync';
+var readlineSync = require("readline-sync");
 var Sucursal = /** @class */ (function (_super) {
     __extends(Sucursal, _super);
     function Sucursal(clientes, pacientes, nombre, domicilio, horarios, cuit, fechaInscripcion) {
@@ -48,32 +47,26 @@ var Sucursal = /** @class */ (function (_super) {
     Sucursal.prototype.setIdSuc = function (modificarId) {
         this.idSuc = modificarId;
     };
-    Sucursal.prototype.obtenerIdRandom = function () {
+    //Métodos para generar ID para el proveedor y el cliente
+    Sucursal.prototype.obtenerIdProveedor = function () {
         var id = Math.random() * Number.MAX_VALUE;
-        this.idSuc = id;
-    };
-    /*public getNumberRandom(){
-        let id;
-        let obtenerId:boolean=false;
-        while(!obtenerId){
-            let id=Math.random()*Number.MAX_VALUE;
-        if(!this.existeId(id)){
-            obtenerId=true;
-            return id;
-        }
-    }
-    }
-    public existeId(id:number):boolean{
-        let existe=false;
-        let i=0;
-        while(!existe&&i<this.getClientes.length){
-            if(this.getClientes[i].getId()==id){
-                existe=true;
+        for (var i = 0; i < this.proveedores.length; i++) {
+            while (this.proveedores[i].getId() == id) {
+                id = Math.random() * Number.MAX_VALUE;
             }
-            i++;
         }
-        return existe;
-     }*/
+        return id;
+    };
+    Sucursal.prototype.obtenerIdCliente = function () {
+        var id = Math.random() * Number.MAX_VALUE;
+        for (var i = 0; i < this.clientes.length; i++) {
+            while (this.clientes[i].getId() == id) {
+                id = Math.random() * Number.MAX_VALUE;
+            }
+        }
+        return id;
+    };
+    //Métodos para mostrar datos de las listas de clientes y pacientes
     Sucursal.prototype.mostrarListaClientes = function () {
         this.clientes.forEach(function (cl) { return console.log(cl); });
     };
@@ -89,6 +82,7 @@ var Sucursal = /** @class */ (function (_super) {
                 existe = true;
             }
             if (!existe) {
+                cl.setIdCliente(this.obtenerIdCliente());
                 this.clientes.push(cl);
             }
             else {
@@ -113,6 +107,16 @@ var Sucursal = /** @class */ (function (_super) {
         }
         return "El cliente no se encuentra registrado";
     };
+    Sucursal.prototype.modificarDatosCliente = function (cl) {
+        var nuevoNombre = readlineSync.question("Introduce el nombre del cliente: ");
+        cl.setNombre(nuevoNombre);
+        var nuevoApellido = readlineSync.question("Introduce el apellido de ", nuevoNombre, ": ");
+        cl.setApellido(nuevoApellido);
+        var nuevoTelefono = readlineSync.question("Teléfono: ");
+        cl.setTelefono(nuevoTelefono);
+        var nuevaDireccion = readlineSync.question("Domicilio: ");
+        cl.setDireccion(nuevaDireccion);
+    };
     //Alta, baja y modificacion de un proveedor
     Sucursal.prototype.altaProveedor = function (provee) {
         var existe = false;
@@ -122,6 +126,7 @@ var Sucursal = /** @class */ (function (_super) {
                 existe = true;
             }
             if (!existe) {
+                provee.setIdProv(this.obtenerIdProveedor());
                 this.proveedores.push(provee);
             }
             else {
@@ -151,7 +156,7 @@ var Sucursal = /** @class */ (function (_super) {
         var existe = false;
         var i = 0;
         while (!existe && i < this.pacientes.length) {
-            if (this.pacientes[i].getNumHistoriaClinica == pac.getNumHistoriaClinica) {
+            if (this.pacientes[i].getNumHistoriaClinica() == pac.getNumHistoriaClinica()) {
                 existe = true;
             }
             if (!existe) {
@@ -177,7 +182,13 @@ var Sucursal = /** @class */ (function (_super) {
         if (enc >= 0) {
             this.pacientes.splice(enc, 1);
         }
-        return "El paciente no se encuentra registrado.";
+        return "Operación realizada.";
+    };
+    Sucursal.prototype.modificarDatosPaciente = function (pac) {
+        var nuevoNombre = readlineSync.question("Introduce el nombre del paciente: ");
+        pac.setNombre(nuevoNombre);
+        var edadActual = readlineSync.question("Introduce la edad actual de ", nuevoNombre, ": ");
+        pac.setEdad(edadActual);
     };
     return Sucursal;
 }(Veterinaria_1.Veterinaria));

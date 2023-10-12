@@ -1,7 +1,8 @@
+
 export class Paciente{
     private numHistoriaClinica:number;
     private nombre:string;
-    private idDuenio:number;
+    public idDuenio:number;
     private especie:string;
     private edad:number;
     private fechaIngreso:string;
@@ -29,6 +30,9 @@ export class Paciente{
     }
     public getIdDuenio():number{
         return this.idDuenio;
+    }
+    public setIdDuenio(id:number){
+        this.idDuenio=id;
     }
     public getEspecie():string{
         return this.especie;

@@ -22,6 +22,12 @@ var Proveedor = /** @class */ (function (_super) {
     function Proveedor(cuit, nombre, apellido, telefono, direccion) {
         return _super.call(this, nombre, apellido, telefono, direccion) || this;
     }
+    Proveedor.prototype.getIdProv = function () {
+        return this.idProv;
+    };
+    Proveedor.prototype.setIdProv = function (id) {
+        this.idProv = id;
+    };
     Proveedor.prototype.getCuit = function () {
         return this.cuit;
     };
