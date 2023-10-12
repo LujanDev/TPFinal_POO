@@ -75,7 +75,7 @@ public altaCliente(cl:Cliente){
         }if(!existe){
             cl.setIdCliente(this.obtenerIdCliente());
             this.clientes.push(cl);
-    //recorro cada paciente del cliente y le seteo el id del dueño
+//recorro cada paciente del cliente y le seteo el id del dueño
     for(let i:number=0; i<cl.getPaciente().length;i++){
         cl.getPaciente()[i].setIdDuenio(cl.getIdCliente());
        
