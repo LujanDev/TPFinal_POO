@@ -75,6 +75,10 @@ public altaCliente(cl:Cliente){
         }if(!existe){
             cl.setIdCliente(this.obtenerIdCliente());
             this.clientes.push(cl);
+    //recorro cada paciente del cliente y le seteo el id del dueño
+    for(let i:number=0; i<cl.getPaciente().length;i++){
+        cl.getPaciente()[i].setIdDuenio(cl.getIdCliente()); 
+    }
         }else{
             console.log('existe el usuario en la sucursal');
         }
@@ -154,7 +158,8 @@ public altaPaciente(pac:Paciente){
     while(!existe&& i<this.pacientes.length){
         if(this.pacientes[i].getNumHistoriaClinica()==pac.getNumHistoriaClinica()){
             existe=true;
-        }if(!existe){
+        }
+        if(!existe){
             this.pacientes.push(pac);
         }else{
             console.log('El paciente ha sido registrado.');

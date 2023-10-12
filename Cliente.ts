@@ -36,6 +36,12 @@ export class Cliente extends Persona{
     public setFechaNacim(fechaModificada){
         this.fechaNacim=fechaModificada;
     }
+    public getPaciente(){
+        return this.paciente;
+    }
+    public setPaciente(listaPaciente:Paciente[]){
+        this.paciente=listaPaciente;
+    }
     public getIdCliente():number{
         return this.idCliente;
     }
